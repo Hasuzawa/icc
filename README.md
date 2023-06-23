@@ -4,7 +4,11 @@ Experiments and utility functions for the ICC Specification v4.
 
 ## Apple ColorSync Utility
 
+<img src="./image/ColorSync_Utility_icon.png" alt="icon of ColorSync Utility" width=128>
+
 For Mac, the official application ColorSync Utility can registers different color profiles and transforms color between different color model.
+
+<img src="./image/ColorSync_Utility_screenshot.png" alt="screen of ColorSync Utility">
 
 ## Specification
 
