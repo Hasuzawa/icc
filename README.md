@@ -21,3 +21,7 @@ For Mac, the official application ColorSync Utility can registers different colo
 [ColorSync Utility](https://support.apple.com/guide/colorsync-utility/welcome/mac)
 
 [Color profiles | Adobe](https://helpx.adobe.com/acrobat/using/color-profiles.html)
+
+## Reference
+
+[Manufacturer Registry](https://www.color.org/signatureRegistry/index.xalter)
