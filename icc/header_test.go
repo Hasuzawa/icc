@@ -102,3 +102,143 @@ func TestHeaderDeviceClass(t *testing.T) {
 		})
 	}
 }
+
+func TestHeaderColorspace(t *testing.T) {
+	for _, tt := range []struct {
+		name       string
+		value      uint32
+		colorSpace string
+	}{
+		{
+			name:       "ColorSpace nCIEXYZ or PCSXYZ",
+			value:      0x5859_5A20,
+			colorSpace: "nCIEXYZ or PCSXYZ",
+		},
+		{
+			name:       "ColorSpace CIELAB or PCSLAB",
+			value:      0x4C61_6220,
+			colorSpace: "CIELAB or PCSLAB",
+		},
+		{
+			name:       "ColorSpace CIELUV",
+			value:      0x4C75_7620,
+			colorSpace: "CIELUV",
+		},
+		{
+			name:       "ColorSpace YCbCr",
+			value:      0x5943_6272,
+			colorSpace: "YCbCr",
+		},
+		{
+			name:       "ColorSpace CIEYxy",
+			value:      0x5978_7920,
+			colorSpace: "CIEYxy",
+		},
+		{
+			name:       "ColorSpace RGB",
+			value:      0x5247_4220,
+			colorSpace: "RGB",
+		},
+		{
+			name:       "ColorSpace Gray",
+			value:      0x4752_4159,
+			colorSpace: "Gray",
+		},
+		{
+			name:       "ColorSpace HSV",
+			value:      0x4853_5620,
+			colorSpace: "HSV",
+		},
+		{
+			name:       "ColorSpace HLS",
+			value:      0x484C_5320,
+			colorSpace: "HLS",
+		},
+		{
+			name:       "ColorSpace CMYK",
+			value:      0x434D_594B,
+			colorSpace: "CMYK",
+		},
+		{
+			name:       "ColorSpace CMY",
+			value:      0x434D_5920,
+			colorSpace: "CMY",
+		},
+		{
+			name:       "ColorSpace 2 color",
+			value:      0x3243_4C52,
+			colorSpace: "2 color",
+		},
+		{
+			name:       "ColorSpace 3 color",
+			value:      0x3343_4C52,
+			colorSpace: "3 color",
+		},
+		{
+			name:       "ColorSpace 4 color",
+			value:      0x3443_4C52,
+			colorSpace: "4 color",
+		},
+		{
+			name:       "ColorSpace 5 color",
+			value:      0x3543_4C52,
+			colorSpace: "5 color",
+		},
+		{
+			name:       "ColorSpace 6 color",
+			value:      0x3643_4C52,
+			colorSpace: "6 color",
+		},
+		{
+			name:       "ColorSpace 7 color",
+			value:      0x3743_4C52,
+			colorSpace: "7 color",
+		},
+		{
+			name:       "ColorSpace 8 color",
+			value:      0x3843_4C52,
+			colorSpace: "8 color",
+		},
+		{
+			name:       "ColorSpace 9 color",
+			value:      0x3943_4C52,
+			colorSpace: "9 color",
+		},
+		{
+			name:       "ColorSpace 10 color",
+			value:      0x4143_4C52,
+			colorSpace: "10 color",
+		},
+		{
+			name:       "ColorSpace 11 color",
+			value:      0x4243_4C52,
+			colorSpace: "11 color",
+		},
+		{
+			name:       "ColorSpace 12 color",
+			value:      0x4343_4C52,
+			colorSpace: "12 color",
+		},
+		{
+			name:       "ColorSpace 13 color",
+			value:      0x4443_4C52,
+			colorSpace: "13 color",
+		},
+		{
+			name:       "ColorSpace 14 color",
+			value:      0x4543_4C52,
+			colorSpace: "14 color",
+		},
+		{
+			name:       "ColorSpace 15 color",
+			value:      0x4643_4C52,
+			colorSpace: "15 color",
+		},
+	} {
+		t.Run(tt.name, func(t *testing.T) {
+			h := icc.Header{}
+			h.ColorSpace = tt.value
+			assert.Equal(t, tt.colorSpace, h.ColorSpaceValue())
+		})
+	}
+}

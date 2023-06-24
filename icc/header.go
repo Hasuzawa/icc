@@ -3,6 +3,7 @@ package icc
 import (
 	"fmt"
 
+	"github.com/Hasuzawa/icc/icc/color_space"
 	"github.com/Hasuzawa/icc/icc/device_class"
 	"github.com/Hasuzawa/icc/icc/manufacturer"
 )
@@ -46,6 +47,14 @@ func (h Header) DeviceClassValue() string {
 	deviceClass, found := device_class.FindDeviceClassById(h.DeviceClass)
 	if found {
 		return deviceClass
+	}
+	return "unknown"
+}
+
+func (h Header) ColorSpaceValue() string {
+	colorSpace, found := color_space.FindColorSpaceBySignature(h.ColorSpace)
+	if found {
+		return colorSpace
 	}
 	return "unknown"
 }
