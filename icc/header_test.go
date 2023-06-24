@@ -5,8 +5,10 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/Hasuzawa/icc/icc"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/Hasuzawa/icc/icc"
+	"github.com/Hasuzawa/icc/icc/media"
 )
 
 func TestHeaderSize(t *testing.T) {
@@ -351,6 +353,51 @@ func TestHeaderFlags(t *testing.T) {
 			h.Flags = tt.value
 			assert.Equal(t, tt.embedded, h.IsEmbedded())
 			assert.Equal(t, tt.dependent, h.IsDependent())
+		})
+	}
+}
+
+func TestHeaderMedia(t *testing.T) {
+	for _, tt := range []struct {
+		name  string
+		value [8]byte
+		media media.Media
+	}{
+		{
+			name:  "all zero",
+			value: [8]byte{},
+			media: media.Media{
+				LightMode: false,
+				Finish:    false,
+				Polarity:  false,
+				Vendor:    [4]byte{},
+			},
+		},
+		{
+			name:  "flags set to 1",
+			value: [8]byte{0b1110_0000},
+			media: media.Media{
+				LightMode: true,
+				Finish:    true,
+				Polarity:  true,
+				Vendor:    [4]byte{},
+			},
+		},
+		{
+			name:  "check vendor bits",
+			value: [8]byte{0x0, 0x0, 0x0, 0x0, 0x12, 0x34, 0x56, 0x78},
+			media: media.Media{
+				LightMode: false,
+				Finish:    false,
+				Polarity:  false,
+				Vendor:    [4]byte{0x12, 0x34, 0x56, 0x78},
+			},
+		},
+	} {
+		t.Run(tt.name, func(t *testing.T) {
+			h := icc.Header{}
+			h.DeviceAttributes = tt.value
+			assert.Equal(t, tt.media, h.Media())
 		})
 	}
 }

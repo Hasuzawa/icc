@@ -8,6 +8,7 @@ import (
 	"github.com/Hasuzawa/icc/icc/color_space"
 	"github.com/Hasuzawa/icc/icc/device_class"
 	"github.com/Hasuzawa/icc/icc/manufacturer"
+	"github.com/Hasuzawa/icc/icc/media"
 	"github.com/Hasuzawa/icc/icc/platform"
 )
 
@@ -99,6 +100,18 @@ func (h Header) IsEmbedded() bool {
 
 func (h Header) IsDependent() bool {
 	return (h.Flags & 0b0100_0000_0000_0000) != 0b0
+}
+
+func (h Header) Media() media.Media {
+	a := h.DeviceAttributes
+	var vendorBits [4]byte
+	copy(vendorBits[:], a[4:])
+	return media.Media{
+		LightMode: (a[0] & 0b1000_0000) != 0b0,
+		Finish:    (a[0] & 0b0100_0000) != 0b0,
+		Polarity:  (a[0] & 0b0010_0000) != 0b0,
+		Vendor:    vendorBits,
+	}
 }
 
 func (h Header) ManufacturerName() string {
