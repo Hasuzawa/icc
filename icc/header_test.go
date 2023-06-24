@@ -313,3 +313,44 @@ func TestHeaderPlatform(t *testing.T) {
 		})
 	}
 }
+
+func TestHeaderFlags(t *testing.T) {
+	for _, tt := range []struct {
+		name      string
+		value     uint32
+		embedded  bool
+		dependent bool
+	}{
+		{
+			name:      "zero value",
+			value:     0b0,
+			embedded:  false,
+			dependent: false,
+		},
+		{
+			name:      "is embedded",
+			value:     0b1000_0000_0000_0000,
+			embedded:  true,
+			dependent: false,
+		},
+		{
+			name:      "is dependent",
+			value:     0b0100_0000_0000_0000,
+			embedded:  false,
+			dependent: true,
+		},
+		{
+			name:      "is embedded and dependent",
+			value:     0b1100_0000_0000_0000,
+			embedded:  true,
+			dependent: true,
+		},
+	} {
+		t.Run(tt.name, func(t *testing.T) {
+			h := icc.Header{}
+			h.Flags = tt.value
+			assert.Equal(t, tt.embedded, h.IsEmbedded())
+			assert.Equal(t, tt.dependent, h.IsDependent())
+		})
+	}
+}

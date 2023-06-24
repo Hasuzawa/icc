@@ -93,6 +93,14 @@ func (h Header) PlatformValue() string {
 	return ""
 }
 
+func (h Header) IsEmbedded() bool {
+	return (h.Flags & 0b1000_0000_0000_0000) != 0b0
+}
+
+func (h Header) IsDependent() bool {
+	return (h.Flags & 0b0100_0000_0000_0000) != 0b0
+}
+
 func (h Header) ManufacturerName() string {
 	name, found := manufacturer.FindManufacturerById(h.DeviceManufacturer)
 	if found {
