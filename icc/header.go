@@ -3,8 +3,8 @@ package icc
 import (
 	"fmt"
 
+	"github.com/Hasuzawa/icc/icc/device_class"
 	"github.com/Hasuzawa/icc/icc/manufacturer"
-	"github.com/Hasuzawa/icc/icc/profile_class"
 )
 
 // The profile header provides the necessary information to allow a receiving system to properly search and sort
@@ -43,7 +43,7 @@ func (h Header) VersionValue() string {
 }
 
 func (h Header) DeviceClassValue() string {
-	deviceClass, found := profile_class.FindProfileClassById(h.DeviceClass)
+	deviceClass, found := device_class.FindDeviceClassById(h.DeviceClass)
 	if found {
 		return deviceClass
 	}
