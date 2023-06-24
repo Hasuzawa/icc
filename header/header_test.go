@@ -1,6 +1,7 @@
 package header_test
 
 import (
+	"encoding/binary"
 	"testing"
 	"time"
 	"unsafe"
@@ -14,6 +15,91 @@ import (
 func TestHeaderSize(t *testing.T) {
 	header := header.Header{}
 	assert.Equal(t, uintptr(128), unsafe.Sizeof(header))
+}
+
+func TestHeaderCMM(t *testing.T) {
+	for _, tt := range []struct {
+		name  string
+		value string
+		cmm   string
+	}{
+		{
+			name:  "Adobe",
+			value: "ADBE",
+			cmm:   "Adobe Systems, Inc.",
+		},
+		{
+			name:  "Apple",
+			value: "appl",
+			cmm:   "Apple Computer",
+		},
+		{
+			name:  "Canon",
+			value: "CCMS",
+			cmm:   "Canon",
+		},
+		{
+			name:  "EFI",
+			value: "EFI ",
+			cmm:   "EFI",
+		},
+		{
+			name:  "Fujifilm",
+			value: "FF  ",
+			cmm:   "Fujifilm Corporation",
+		},
+		{
+			name:  "Global Graphics",
+			value: "HCMM",
+			cmm:   "Global Graphics Software Inc",
+		},
+		{
+			name:  "Canon",
+			value: "CCMS",
+			cmm:   "Canon",
+		},
+		{
+			name:  "Heidelberger Druckmaschinen AG",
+			value: "HDM ",
+			cmm:   "Heidelberger Druckmaschinen AG",
+		},
+		{
+			name:  "Hewlett Packard",
+			value: "lcms",
+			cmm:   "Hewlett Packard",
+		},
+		{
+			name:  "Kodak",
+			value: "KCMS",
+			cmm:   "Kodak",
+		},
+		{
+			name:  "Konica Minolta",
+			value: "MCML",
+			cmm:   "Konica Minolta",
+		},
+		{
+			name:  "Microsoft",
+			value: "WCS ",
+			cmm:   "Microsoft",
+		},
+		{
+			name:  "Toshiba",
+			value: "TCMM",
+			cmm:   "Toshiba TEC Corporation",
+		},
+		{
+			name:  "Vivo",
+			value: "vivo",
+			cmm:   "Vivo Mobile Communication",
+		},
+	} {
+		t.Run(tt.name, func(t *testing.T) {
+			h := header.Header{}
+			h.CMM = binary.BigEndian.Uint32([]byte(tt.value))
+			assert.Equal(t, tt.cmm, h.CMMValue())
+		})
+	}
 }
 
 func TestHeaderVersion(t *testing.T) {

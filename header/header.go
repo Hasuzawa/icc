@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/Hasuzawa/icc/header/cmm"
 	"github.com/Hasuzawa/icc/header/color_space"
 	"github.com/Hasuzawa/icc/header/device_class"
 	"github.com/Hasuzawa/icc/header/manufacturer"
@@ -38,6 +39,14 @@ type Header struct {
 
 func (h Header) Validate() error {
 	return nil
+}
+
+func (h Header) CMMValue() string {
+	cmm, found := cmm.FindCMMBySignature(h.CMM)
+	if found {
+		return cmm
+	}
+	return ""
 }
 
 func (h Header) VersionValue() string {
