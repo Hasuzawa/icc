@@ -49,7 +49,7 @@ func (h Header) VersionValue() string {
 }
 
 func (h Header) DeviceClassValue() string {
-	deviceClass, found := device_class.FindDeviceClassById(h.DeviceClass)
+	deviceClass, found := device_class.FindDeviceClassBySignature(h.DeviceClass)
 	if found {
 		return deviceClass
 	}
@@ -124,7 +124,7 @@ func (h Header) RenderingIntentValue() string {
 }
 
 func (h Header) ManufacturerName() string {
-	name, found := manufacturer.FindManufacturerById(h.DeviceManufacturer)
+	name, found := manufacturer.FindManufacturerBySignature(h.DeviceManufacturer)
 	if found {
 		return name
 	}

@@ -278,7 +278,7 @@ var manufacturerMap = map[uint32]string{
 	0x5A52414E: "Zoran Corporation",
 }
 
-func FindManufacturerById(id uint32) (manufacturerName string, found bool) {
-	v, ok := manufacturerMap[id]
+func FindManufacturerBySignature(signature uint32) (manufacturer string, found bool) {
+	v, ok := manufacturerMap[signature]
 	return v, ok
 }

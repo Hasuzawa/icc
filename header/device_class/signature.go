@@ -12,7 +12,7 @@ var (
 	}
 )
 
-func FindDeviceClassById(id uint32) (profileClass string, found bool) {
-	v, ok := deviceClassMap[id]
+func FindDeviceClassBySignature(signature uint32) (deviceClass string, found bool) {
+	v, ok := deviceClassMap[signature]
 	return v, ok
 }

@@ -32,3 +32,8 @@ var (
 		0x7a633030: "Zoran Corporation",
 	}
 )
+
+func FindCMMBySignature(signature uint32) (cmm string, found bool) {
+	v, ok := CMMMap[signature]
+	return v, ok
+}
