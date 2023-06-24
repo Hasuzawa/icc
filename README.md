@@ -25,3 +25,9 @@ For Mac, the official application ColorSync Utility can registers different colo
 ## Reference
 
 [Manufacturer Registry](https://www.color.org/signatureRegistry/index.xalter)
+
+## Bugs Known
+
+These are bugs or discrepancies I discovered when I am developing the software.
+
+1. In the official Private and ICC Tag and CMM Registry dated 4 March 2021, the CMM Signature for Konica Minolta is listed as "MCML" with ASCII of 0x4D43_4D44, but the ASCII value of "L" is 0x4C, the correct signature for "MCML" should be 0x4D43_4D4C. For backward compatibility, both values are decoded to "Konica Minolta".
