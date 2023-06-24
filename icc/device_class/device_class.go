@@ -1,7 +1,7 @@
-package profile_class
+package device_class
 
 var (
-	profileClassMap = map[uint32]string{
+	deviceClassMap = map[uint32]string{
 		0x73636E72: "Input",
 		0x6D6E7472: "Display",
 		0x70727472: "Output",
@@ -12,7 +12,7 @@ var (
 	}
 )
 
-func FindProfileClassById(id uint32) (profileClass string, found bool) {
-	v, ok := profileClassMap[id]
+func FindDeviceClassById(id uint32) (profileClass string, found bool) {
+	v, ok := deviceClassMap[id]
 	return v, ok
 }
