@@ -19,7 +19,7 @@ var (
 		0x5249_4d58: "ICC",
 		0x4449_4d58: "ICC",
 		0x4b43_4d53: "Kodak",
-		0x4d43_4d44: "Konica Minolta", // This value is listed on Tag Registry 4 March 2021 but it is wrong.
+		0x4d43_4d44: "Konica Minolta", // This value is listed on Tag Registry dated 4 March 2021 but it is wrong.
 		0x4d43_4d4c: "Konica Minolta",
 		0x5743_5320: "Microsoft",
 		0x5349_474E: "Mutoh",

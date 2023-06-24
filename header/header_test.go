@@ -29,6 +29,11 @@ func TestHeaderCMM(t *testing.T) {
 			cmm:   "Adobe Systems, Inc.",
 		},
 		{
+			name:  "Agfa Graphics",
+			value: "ACMS",
+			cmm:   "Agfa Graphics N. V.",
+		},
+		{
 			name:  "Apple",
 			value: "appl",
 			cmm:   "Apple Computer",
@@ -82,6 +87,11 @@ func TestHeaderCMM(t *testing.T) {
 			name:  "Microsoft",
 			value: "WCS ",
 			cmm:   "Microsoft",
+		},
+		{
+			name:  "Onyx Graphics",
+			value: "ONYX",
+			cmm:   "Onyx Graphics",
 		},
 		{
 			name:  "Toshiba",
