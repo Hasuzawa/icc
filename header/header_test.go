@@ -1,4 +1,4 @@
-package icc_test
+package header_test
 
 import (
 	"testing"
@@ -7,12 +7,12 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/Hasuzawa/icc/icc"
-	"github.com/Hasuzawa/icc/icc/media"
+	"github.com/Hasuzawa/icc/header"
+	"github.com/Hasuzawa/icc/header/media"
 )
 
 func TestHeaderSize(t *testing.T) {
-	header := icc.Header{}
+	header := header.Header{}
 	assert.Equal(t, uintptr(128), unsafe.Sizeof(header))
 }
 
@@ -49,7 +49,7 @@ func TestHeaderVersion(t *testing.T) {
 		},
 	} {
 		t.Run(tt.name, func(t *testing.T) {
-			h := icc.Header{}
+			h := header.Header{}
 			h.Version = tt.value
 			assert.Equal(t, tt.version, h.VersionValue())
 		})
@@ -99,7 +99,7 @@ func TestHeaderDeviceClass(t *testing.T) {
 		},
 	} {
 		t.Run(tt.name, func(t *testing.T) {
-			h := icc.Header{}
+			h := header.Header{}
 			h.DeviceClass = tt.value
 			assert.Equal(t, tt.deviceClass, h.DeviceClassValue())
 		})
@@ -239,7 +239,7 @@ func TestHeaderColorspace(t *testing.T) {
 		},
 	} {
 		t.Run(tt.name, func(t *testing.T) {
-			h := icc.Header{}
+			h := header.Header{}
 			h.ColorSpace = tt.value
 			assert.Equal(t, tt.colorSpace, h.ColorSpaceValue())
 		})
@@ -274,7 +274,7 @@ func TestHeaderDatetime(t *testing.T) {
 		},
 	} {
 		t.Run(tt.name, func(t *testing.T) {
-			h := icc.Header{}
+			h := header.Header{}
 			h.Datetime = tt.value
 			assert.Equal(t, tt.datetime, h.DatetimeValue())
 		})
@@ -309,7 +309,7 @@ func TestHeaderPlatform(t *testing.T) {
 		},
 	} {
 		t.Run(tt.name, func(t *testing.T) {
-			h := icc.Header{}
+			h := header.Header{}
 			h.Platform = tt.value
 			assert.Equal(t, tt.platform, h.PlatformValue())
 		})
@@ -349,7 +349,7 @@ func TestHeaderFlags(t *testing.T) {
 		},
 	} {
 		t.Run(tt.name, func(t *testing.T) {
-			h := icc.Header{}
+			h := header.Header{}
 			h.Flags = tt.value
 			assert.Equal(t, tt.embedded, h.IsEmbedded())
 			assert.Equal(t, tt.dependent, h.IsDependent())
@@ -395,7 +395,7 @@ func TestHeaderMedia(t *testing.T) {
 		},
 	} {
 		t.Run(tt.name, func(t *testing.T) {
-			h := icc.Header{}
+			h := header.Header{}
 			h.DeviceAttributes = tt.value
 			assert.Equal(t, tt.media, h.Media())
 		})

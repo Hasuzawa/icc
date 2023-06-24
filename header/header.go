@@ -1,16 +1,16 @@
-package icc
+package header
 
 import (
 	"encoding/binary"
 	"fmt"
 	"time"
 
-	"github.com/Hasuzawa/icc/icc/color_space"
-	"github.com/Hasuzawa/icc/icc/device_class"
-	"github.com/Hasuzawa/icc/icc/manufacturer"
-	"github.com/Hasuzawa/icc/icc/media"
-	"github.com/Hasuzawa/icc/icc/platform"
-	"github.com/Hasuzawa/icc/icc/rendering_intent"
+	"github.com/Hasuzawa/icc/header/color_space"
+	"github.com/Hasuzawa/icc/header/device_class"
+	"github.com/Hasuzawa/icc/header/manufacturer"
+	"github.com/Hasuzawa/icc/header/media"
+	"github.com/Hasuzawa/icc/header/platform"
+	"github.com/Hasuzawa/icc/header/rendering_intent"
 )
 
 // The profile header provides the necessary information to allow a receiving system to properly search and sort
