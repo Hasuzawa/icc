@@ -2,6 +2,7 @@ package icc_test
 
 import (
 	"testing"
+	"time"
 	"unsafe"
 
 	"github.com/Hasuzawa/icc/icc"
@@ -239,6 +240,41 @@ func TestHeaderColorspace(t *testing.T) {
 			h := icc.Header{}
 			h.ColorSpace = tt.value
 			assert.Equal(t, tt.colorSpace, h.ColorSpaceValue())
+		})
+	}
+}
+
+func TestHeaderDatetime(t *testing.T) {
+	for _, tt := range []struct {
+		name     string
+		value    [12]byte
+		datetime time.Time
+	}{
+		{
+			name:     "zero datetime",
+			value:    [12]byte{0x0},
+			datetime: time.Date(0, 0, 0, 0, 0, 0, 0, time.UTC),
+		},
+		{
+			name:     "datetime 2013-07-25 18:31",
+			value:    [12]byte{0x07, 0xDD, 0x00, 0x07, 0x00, 0x19, 0x00, 0x12, 0x00, 0x1F},
+			datetime: time.Date(2013, 7, 25, 18, 31, 0, 0, time.UTC),
+		},
+		{
+			name:     "datetime 1998-10-31 09:41:21",
+			value:    [12]byte{0x07, 0xCE, 0x00, 0x0A, 0x00, 0x1F, 0x00, 0x09, 0x00, 0x29, 0x00, 0x15},
+			datetime: time.Date(1998, 10, 31, 9, 41, 21, 0, time.UTC),
+		},
+		{
+			name:     "datetime 2010-02-29 (leap year)",
+			value:    [12]byte{0x07, 0xDA, 0x00, 0x02, 0x00, 0x1D},
+			datetime: time.Date(2010, 2, 29, 0, 0, 0, 0, time.UTC),
+		},
+	} {
+		t.Run(tt.name, func(t *testing.T) {
+			h := icc.Header{}
+			h.Datetime = tt.value
+			assert.Equal(t, tt.datetime, h.DatetimeValue())
 		})
 	}
 }

@@ -1,7 +1,9 @@
 package icc
 
 import (
+	"encoding/binary"
 	"fmt"
+	"time"
 
 	"github.com/Hasuzawa/icc/icc/color_space"
 	"github.com/Hasuzawa/icc/icc/device_class"
@@ -57,6 +59,29 @@ func (h Header) ColorSpaceValue() string {
 		return colorSpace
 	}
 	return "unknown"
+}
+
+func (h Header) DatetimeValue() time.Time {
+	var (
+		year   = int(binary.BigEndian.Uint16(h.Datetime[0:2]))
+		month  = int(binary.BigEndian.Uint16(h.Datetime[2:4]))
+		day    = int(binary.BigEndian.Uint16(h.Datetime[4:6]))
+		hour   = int(binary.BigEndian.Uint16(h.Datetime[6:8]))
+		minute = int(binary.BigEndian.Uint16(h.Datetime[8:10]))
+		second = int(binary.BigEndian.Uint16(h.Datetime[10:12]))
+	)
+	fmt.Println(int(h.Datetime[0]) << 8)
+	fmt.Println(int(h.Datetime[1]))
+	return time.Date(
+		year,
+		time.Month(month),
+		day,
+		hour,
+		minute,
+		second,
+		0,
+		time.UTC,
+	)
 }
 
 func (h Header) ManufacturerName() string {
