@@ -10,6 +10,7 @@ import (
 	"github.com/Hasuzawa/icc/icc/manufacturer"
 	"github.com/Hasuzawa/icc/icc/media"
 	"github.com/Hasuzawa/icc/icc/platform"
+	"github.com/Hasuzawa/icc/icc/rendering_intent"
 )
 
 // The profile header provides the necessary information to allow a receiving system to properly search and sort
@@ -112,6 +113,14 @@ func (h Header) Media() media.Media {
 		Polarity:  (a[0] & 0b0010_0000) != 0b0,
 		Vendor:    vendorBits,
 	}
+}
+
+func (h Header) RenderingIntentValue() string {
+	renderingIntent, found := rendering_intent.FindRenderingIntentByValue(h.RenderingIntent)
+	if found {
+		return renderingIntent
+	}
+	return ""
 }
 
 func (h Header) ManufacturerName() string {
