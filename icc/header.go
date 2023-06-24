@@ -8,6 +8,7 @@ import (
 	"github.com/Hasuzawa/icc/icc/color_space"
 	"github.com/Hasuzawa/icc/icc/device_class"
 	"github.com/Hasuzawa/icc/icc/manufacturer"
+	"github.com/Hasuzawa/icc/icc/platform"
 )
 
 // The profile header provides the necessary information to allow a receiving system to properly search and sort
@@ -50,7 +51,7 @@ func (h Header) DeviceClassValue() string {
 	if found {
 		return deviceClass
 	}
-	return "unknown"
+	return ""
 }
 
 func (h Header) ColorSpaceValue() string {
@@ -58,7 +59,7 @@ func (h Header) ColorSpaceValue() string {
 	if found {
 		return colorSpace
 	}
-	return "unknown"
+	return ""
 }
 
 func (h Header) DatetimeValue() time.Time {
@@ -84,10 +85,18 @@ func (h Header) DatetimeValue() time.Time {
 	)
 }
 
+func (h Header) PlatformValue() string {
+	platform, found := platform.FindPlatformBySignature(h.Platform)
+	if found {
+		return platform
+	}
+	return ""
+}
+
 func (h Header) ManufacturerName() string {
 	name, found := manufacturer.FindManufacturerById(h.DeviceManufacturer)
 	if found {
 		return name
 	}
-	return "unknown"
+	return ""
 }

@@ -278,3 +278,38 @@ func TestHeaderDatetime(t *testing.T) {
 		})
 	}
 }
+
+func TestHeaderPlatform(t *testing.T) {
+	for _, tt := range []struct {
+		name     string
+		value    uint32
+		platform string
+	}{
+		{
+			name:     "Apple Computer, Inc.",
+			value:    0x4150_504C,
+			platform: "Apple Computer, Inc.",
+		},
+		{
+			name:     "Microsoft Corporation",
+			value:    0x4D53_4654,
+			platform: "Microsoft Corporation",
+		},
+		{
+			name:     "Silicon Graphics, Inc.",
+			value:    0x5347_4920,
+			platform: "Silicon Graphics, Inc.",
+		},
+		{
+			name:     "Sun Microsystems, Inc.",
+			value:    0x5355_4E57,
+			platform: "Sun Microsystems, Inc.",
+		},
+	} {
+		t.Run(tt.name, func(t *testing.T) {
+			h := icc.Header{}
+			h.Platform = tt.value
+			assert.Equal(t, tt.platform, h.PlatformValue())
+		})
+	}
+}
