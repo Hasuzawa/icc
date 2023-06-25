@@ -17,6 +17,96 @@ func TestHeaderSize(t *testing.T) {
 	assert.Equal(t, uintptr(128), unsafe.Sizeof(header))
 }
 
+func TestHeaderValidate(t *testing.T) {
+	for _, tt := range []struct {
+		name        string
+		deviceClass string
+		pcs         string
+		err         error
+	}{
+		{
+			name:        "Input device with PCS PCSXYZ",
+			deviceClass: "scnr",
+			pcs:         "XYZ ",
+			err:         nil,
+		},
+		{
+			name:        "Display device with PCS PCSLAB",
+			deviceClass: "mntr",
+			pcs:         "Lab ",
+			err:         nil,
+		},
+		{
+			name:        "Output device with PCS PCSXYZ",
+			deviceClass: "prtr",
+			pcs:         "XYZ ",
+			err:         nil,
+		},
+		{
+			name:        "ColorSpace profile with PCS PCSLAB",
+			deviceClass: "spac",
+			pcs:         "Lab ",
+			err:         nil,
+		},
+		{
+			name:        "Abstract profile with PCS PCSXYZ",
+			deviceClass: "abst",
+			pcs:         "XYZ ",
+			err:         nil,
+		},
+		{
+			name:        "NamedColor profile with PCS PCSLAB",
+			deviceClass: "nmcl",
+			pcs:         "Lab ",
+			err:         nil,
+		},
+		{
+			name:        "DeviceLink with PCS PCSXYZ",
+			deviceClass: "link",
+			pcs:         "XYZ ",
+			err:         nil,
+		},
+		{
+			name:        "DeviceLink with PCS PCSLAB",
+			deviceClass: "link",
+			pcs:         "Lab ",
+			err:         nil,
+		},
+		{
+			name:        "DeviceLink with PCS RGB",
+			deviceClass: "link",
+			pcs:         "RGB ",
+			err:         nil,
+		},
+		{
+			name:        "DeviceLink with PCS CMYK",
+			deviceClass: "link",
+			pcs:         "CMYK",
+			err:         nil,
+		},
+		{
+			name:        "Input device with PCS RGB",
+			deviceClass: "scnr",
+			pcs:         "RGB ",
+			err:         header.ErrInvalidPCSField,
+		},
+		{
+			name:        "Display device with PCS CMYK",
+			deviceClass: "mntr",
+			pcs:         "CMYK",
+			err:         header.ErrInvalidPCSField,
+		},
+	} {
+		t.Run(tt.name, func(t *testing.T) {
+			h := header.Header{}
+			h.DeviceClass = binary.BigEndian.Uint32([]byte(tt.deviceClass))
+			h.PCS = binary.BigEndian.Uint32([]byte(tt.pcs))
+			err := h.Validate()
+			assert.Equal(t, tt.err, err)
+		})
+	}
+}
+
 func TestHeaderCMM(t *testing.T) {
 	for _, tt := range []struct {
 		name  string
@@ -338,6 +428,91 @@ func TestHeaderColorspace(t *testing.T) {
 			h := header.Header{}
 			h.ColorSpace = tt.value
 			assert.Equal(t, tt.colorSpace, h.ColorSpaceValue())
+		})
+	}
+}
+
+func TestHeaderPCS(t *testing.T) {
+	for _, tt := range []struct {
+		name  string
+		value string
+		pcs   string
+	}{
+		{
+			name:  "nCIEXYZ or PCSXYZ",
+			value: "XYZ ",
+			pcs:   "nCIEXYZ or PCSXYZ",
+		},
+		{
+			name:  "CIELAB or PCSLAB",
+			value: "Lab ",
+			pcs:   "CIELAB or PCSLAB",
+		},
+		{
+			name:  "CIELUV",
+			value: "Luv ",
+			pcs:   "CIELUV",
+		},
+		{
+			name:  "YCbCr",
+			value: "YCbr",
+			pcs:   "YCbCr",
+		},
+		{
+			name:  "CIEYxy",
+			value: "Yxy ",
+			pcs:   "CIEYxy",
+		},
+		{
+			name:  "RGB",
+			value: "RGB ",
+			pcs:   "RGB",
+		},
+		{
+			name:  "Gray",
+			value: "GRAY",
+			pcs:   "Gray",
+		},
+		{
+			name:  "HSV",
+			value: "HSV ",
+			pcs:   "HSV",
+		},
+		{
+			name:  "HLS",
+			value: "HLS ",
+			pcs:   "HLS",
+		},
+		{
+			name:  "CMYK",
+			value: "CMYK",
+			pcs:   "CMYK",
+		},
+		{
+			name:  "CMY",
+			value: "CMY ",
+			pcs:   "CMY",
+		},
+		{
+			name:  "2 color",
+			value: "2CLR",
+			pcs:   "2 color",
+		},
+		{
+			name:  "3 color",
+			value: "3CLR",
+			pcs:   "3 color",
+		},
+		{
+			name:  "4 color",
+			value: "4CLR",
+			pcs:   "4 color",
+		},
+	} {
+		t.Run(tt.name, func(t *testing.T) {
+			h := header.Header{}
+			h.PCS = binary.BigEndian.Uint32([]byte(tt.value))
+			assert.Equal(t, tt.pcs, h.PCSValue())
 		})
 	}
 }

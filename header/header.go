@@ -3,6 +3,7 @@ package header
 import (
 	"encoding/binary"
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/Hasuzawa/icc/header/cmm"
@@ -38,6 +39,12 @@ type Header struct {
 }
 
 func (h Header) Validate() error {
+	if h.DeviceClassValue() != "DeviceLink" {
+		fmt.Println(h.PCSValue())
+		if !strings.Contains(h.PCSValue(), "PCSXYZ") && !strings.Contains(h.PCSValue(), "PCSLAB") {
+			return ErrInvalidPCSField
+		}
+	}
 	return nil
 }
 
@@ -67,6 +74,14 @@ func (h Header) DeviceClassValue() string {
 
 func (h Header) ColorSpaceValue() string {
 	colorSpace, found := color_space.FindColorSpaceBySignature(h.ColorSpace)
+	if found {
+		return colorSpace
+	}
+	return ""
+}
+
+func (h Header) PCSValue() string {
+	colorSpace, found := color_space.FindColorSpaceBySignature(h.PCS)
 	if found {
 		return colorSpace
 	}
