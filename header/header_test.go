@@ -22,85 +22,113 @@ func TestHeaderValidate(t *testing.T) {
 		name        string
 		deviceClass string
 		pcs         string
+		signature   string
 		err         error
 	}{
 		{
 			name:        "Input device with PCS PCSXYZ",
 			deviceClass: "scnr",
 			pcs:         "XYZ ",
+			signature:   "acsp",
 			err:         nil,
 		},
 		{
 			name:        "Display device with PCS PCSLAB",
 			deviceClass: "mntr",
 			pcs:         "Lab ",
+			signature:   "acsp",
 			err:         nil,
 		},
 		{
 			name:        "Output device with PCS PCSXYZ",
 			deviceClass: "prtr",
 			pcs:         "XYZ ",
+			signature:   "acsp",
 			err:         nil,
 		},
 		{
 			name:        "ColorSpace profile with PCS PCSLAB",
 			deviceClass: "spac",
 			pcs:         "Lab ",
+			signature:   "acsp",
 			err:         nil,
 		},
 		{
 			name:        "Abstract profile with PCS PCSXYZ",
 			deviceClass: "abst",
 			pcs:         "XYZ ",
+			signature:   "acsp",
 			err:         nil,
 		},
 		{
 			name:        "NamedColor profile with PCS PCSLAB",
 			deviceClass: "nmcl",
 			pcs:         "Lab ",
+			signature:   "acsp",
 			err:         nil,
 		},
 		{
 			name:        "DeviceLink with PCS PCSXYZ",
 			deviceClass: "link",
 			pcs:         "XYZ ",
+			signature:   "acsp",
 			err:         nil,
 		},
 		{
 			name:        "DeviceLink with PCS PCSLAB",
 			deviceClass: "link",
 			pcs:         "Lab ",
+			signature:   "acsp",
 			err:         nil,
 		},
 		{
 			name:        "DeviceLink with PCS RGB",
 			deviceClass: "link",
 			pcs:         "RGB ",
+			signature:   "acsp",
 			err:         nil,
 		},
 		{
 			name:        "DeviceLink with PCS CMYK",
 			deviceClass: "link",
 			pcs:         "CMYK",
+			signature:   "acsp",
 			err:         nil,
 		},
 		{
 			name:        "Input device with PCS RGB",
 			deviceClass: "scnr",
 			pcs:         "RGB ",
+			signature:   "acsp",
 			err:         header.ErrInvalidPCSField,
 		},
 		{
 			name:        "Display device with PCS CMYK",
 			deviceClass: "mntr",
 			pcs:         "CMYK",
+			signature:   "acsp",
 			err:         header.ErrInvalidPCSField,
+		},
+		{
+			name:        "acsp signature",
+			deviceClass: "link",
+			pcs:         "RGB ",
+			signature:   "acsp",
+			err:         nil,
+		},
+		{
+			name:        "invalid signature",
+			deviceClass: "link",
+			pcs:         "RGB ",
+			signature:   "abcd",
+			err:         header.ErrInvalidProfileSignature,
 		},
 	} {
 		t.Run(tt.name, func(t *testing.T) {
 			h := header.Header{}
 			h.DeviceClass = binary.BigEndian.Uint32([]byte(tt.deviceClass))
 			h.PCS = binary.BigEndian.Uint32([]byte(tt.pcs))
+			copy(h.Signature[:], tt.signature)
 			err := h.Validate()
 			assert.Equal(t, tt.err, err)
 		})

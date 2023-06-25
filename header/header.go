@@ -25,7 +25,7 @@ type Header struct {
 	ColorSpace         uint32
 	PCS                uint32
 	Datetime           [12]byte
-	Signature          uint32
+	Signature          [4]byte
 	Platform           uint32
 	Flags              uint32
 	DeviceManufacturer uint32
@@ -40,10 +40,12 @@ type Header struct {
 
 func (h Header) Validate() error {
 	if h.DeviceClassValue() != "DeviceLink" {
-		fmt.Println(h.PCSValue())
 		if !strings.Contains(h.PCSValue(), "PCSXYZ") && !strings.Contains(h.PCSValue(), "PCSLAB") {
 			return ErrInvalidPCSField
 		}
+	}
+	if h.SignatureValue() != "acsp" {
+		return ErrInvalidProfileSignature
 	}
 	return nil
 }
@@ -109,6 +111,10 @@ func (h Header) DatetimeValue() time.Time {
 		0,
 		time.UTC,
 	)
+}
+
+func (h Header) SignatureValue() string {
+	return string(h.Signature[:])
 }
 
 func (h Header) PlatformValue() string {
