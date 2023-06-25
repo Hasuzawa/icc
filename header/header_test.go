@@ -700,3 +700,141 @@ func TestHeaderMedia(t *testing.T) {
 		})
 	}
 }
+
+func TestHeaderCreactor(t *testing.T) {
+	for _, tt := range []struct {
+		name    string
+		value   string
+		creator string
+	}{
+		{
+			name:    "Adobe",
+			value:   "ADBE",
+			creator: "Adobe Systems Incorporated",
+		},
+		{
+			name:    "Apple",
+			value:   "APPL",
+			creator: "Apple Computer, Inc.",
+		},
+		{
+			name:    "AT&T",
+			value:   "AT&T",
+			creator: "AT&T Computer Systems",
+		},
+		{
+			name:    "Intel",
+			value:   "CAMR",
+			creator: "Intel Corporation",
+		},
+		{
+			name:    "Canon",
+			value:   "CANO",
+			creator: "Canon, Inc. (Canon Development Americas, Inc.)",
+		},
+		{
+			name:    "Casio",
+			value:   "CASI",
+			creator: "Casio Computer Co., Ltd.",
+		},
+		{
+			name:    "Fujifilm",
+			value:   "FF  ",
+			creator: "Fujifilm Corporation",
+		},
+		{
+			name:    "Fujitsu",
+			value:   "FUJI",
+			creator: "Fujitsu",
+		},
+		{
+			name:    "Hermes",
+			value:   "HERM",
+			creator: "Hermes",
+		},
+		{
+			name:    "IBM",
+			value:   "IBM ",
+			creator: "IBM Corporation",
+		},
+		{
+			name:    "Hewlett-Packard",
+			value:   "HP  ",
+			creator: "Hewlett-Packard",
+		},
+		{
+			name:    "Intel",
+			value:   "INTC",
+			creator: "Intel Corporation",
+		},
+		{
+			name:    "Konica",
+			value:   "KNCA",
+			creator: "Konica Corporation",
+		},
+		{
+			name:    "LG",
+			value:   "LGEL",
+			creator: "LG Electronics Inc.",
+		},
+		{
+			name:    "Lenovo",
+			value:   "LNV", // This is a 3 char signature
+			creator: "Lenovo",
+		},
+		{
+			name:    "Mitsubishi",
+			value:   "MITS",
+			creator: "Mitsubishi Electronics America, Inc.",
+		},
+		{
+			name:    "Microsoft",
+			value:   "MSFT",
+			creator: "Microsoft Corporation",
+		},
+		{
+			name:    "Nikon",
+			value:   "NKON",
+			creator: "Nikon Corporation",
+		},
+		{
+			name:    "Philips",
+			value:   "PHIL",
+			creator: "Philips Consumer Electronics Co.",
+		},
+		{
+			name:    "Samsung",
+			value:   "SAMS",
+			creator: "Samsung, Inc.",
+		},
+		{
+			name:    "ICC",
+			value:   "SICC",
+			creator: "International Color Consortium",
+		},
+		{
+			name:    "Sony",
+			value:   "SONY",
+			creator: "SONY Corporation",
+		},
+		{
+			name:    "Toshiba",
+			value:   "TOSH",
+			creator: "Toshiba, Inc.",
+		},
+		{
+			name:    "Xerox",
+			value:   "XERX",
+			creator: "Xerox Corporation",
+		},
+	} {
+		t.Run(tt.name, func(t *testing.T) {
+			h := header.Header{}
+			for len(tt.value) < 4 {
+				tt.value += string(byte(0))
+			}
+			h.Creator = binary.BigEndian.Uint32([]byte(tt.value))
+			assert.Equal(t, tt.creator, h.CreatorValue())
+		})
+	}
+}

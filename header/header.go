@@ -160,3 +160,11 @@ func (h Header) ManufacturerName() string {
 	}
 	return ""
 }
+
+func (h Header) CreatorValue() string {
+	creator, found := manufacturer.FindManufacturerBySignature(h.Creator)
+	if found {
+		return creator
+	}
+	return ""
+}
