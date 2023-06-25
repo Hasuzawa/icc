@@ -1,6 +1,6 @@
 ## Introduction
 
-Experiments and utility functions for the ICC Specification v4.
+Experiments and utility functions for ICC profile v4.4.
 
 ## Apple ColorSync Utility
 
