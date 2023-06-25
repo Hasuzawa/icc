@@ -14,17 +14,17 @@ For Mac, the official application ColorSync Utility can registers different colo
 
 [Specification ICC.1:2022 (Profile version 4.4.0.0)](https://www.color.org/specification/ICC.1-2022-05.pdf)
 
+[Private and ICC tag and CMM registry](https://www.color.org/signatures2.xalter)
+
+[Manufacturer Registry](https://www.color.org/signatureRegistry/index.xalter)
+
 ## Documentation
 
 [International Color Consortium](https://www.color.org/)
 
-[ColorSync Utility](https://support.apple.com/guide/colorsync-utility/welcome/mac)
+[ColorSync Utility | Apple](https://support.apple.com/guide/colorsync-utility/welcome/mac)
 
 [Color profiles | Adobe](https://helpx.adobe.com/acrobat/using/color-profiles.html)
-
-## Reference
-
-[Manufacturer Registry](https://www.color.org/signatureRegistry/index.xalter)
 
 ## Bugs Known
 
