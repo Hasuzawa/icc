@@ -2,6 +2,10 @@
 
 Experiments and utility functions for ICC profile v4.4.
 
+## Color Space in 5 Sentences
+
+The concept of color space is the representation of the visible spectrum using variables. Due to the nature of light as electromagneric wave related by `c = fλ` and wave interference, it is possible to represent the entire visible spectrum reasonably accurate using only a small number of colors. In reality, the retina of human eyes are more sensitive to some colors (red, green and blue) and many displays use LEDs that emit red, green and blue light. Historically RGB became one of the most prevalent color model for color space, but other color formats such as CMYK, HSL and YCbCr are also common. For software engineers, the choice of a color model for color space should consider the data size, resolution, gamut and accuracy, the relevant input device, output device or media, among many other factors.
+
 ## Profile Header
 
 | field               | size (in bytes) | completed |
