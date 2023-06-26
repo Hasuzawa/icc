@@ -2,6 +2,36 @@
 
 Experiments and utility functions for ICC profile v4.4.
 
+## Profile Header
+
+| field               | size (in bytes) | completed |
+|---------------------|-----------------|-----------|
+| size                | 4               | ❌        |
+| CMM<sub>1</sub>     | 4               | ✅︎        |
+| version             | 4               | ✅︎        |
+| deviceClass         | 4               | ✅︎        |
+| color space         | 4               | ✅︎        |
+| PCS<sub>2</sub>     | 4               | ✅︎        |
+| datetime            | 12              | ✅︎        |
+| profile signature   | 4               | ✅︎        |
+| platform            | 4               | ✅︎        |
+| CMM flags           | 4               | ✅︎        |
+| manufacturer        | 4               | ✅︎        |
+| device model        | 4               | ❌        |
+| device attributes   | 8               | ✅︎        |
+| rendering intent    | 4               | ✅︎        |
+| nCIEXYZ<sub>3</sub> | 12              | ❌        |
+| creator             | 4               | ✅︎        |
+| profile id          | 16              | ❌        |
+| reserved            | 28              | ✅︎        |
+
+
+<sub>1</sub> Color Management Module
+
+<sub>2</sub> Profile Connection Space
+
+<sub>3</sub> (to be updated)
+
 ## Apple ColorSync Utility
 
 <img src="./image/ColorSync_Utility_icon.png" alt="icon of ColorSync Utility" width=128>
