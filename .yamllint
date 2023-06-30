@@ -3,79 +3,79 @@
 extends: default
 
 yaml-filess:
-	- "*.yaml"
-	- "*.yml"
-	- ".yamllint"
+- "*.yaml"
+- "*.yml"
+- ".yamllint"
 
 locale: en_US.UTF-8
 
 rules:
-	braces:
-		forbid: false
-		min-spaces-inside: 0
-		max-spaces-inside: 1
-		min-spaces-inside-empty: 0
-		max-spaces-inside-empty: 1
+  braces:
+    forbid: false
+    min-spaces-inside: 0
+    max-spaces-inside: 1
+    min-spaces-inside-empty: 0
+    max-spaces-inside-empty: 1
   brackets:
-		forbid: false
-		min-spaces-inside: 0
-		max-spaces-inside: 1
-		min-spaces-inside-empty: 0
-		max-spaces-inside-empty: 1
+    forbid: false
+    min-spaces-inside: 0
+    max-spaces-inside: 1
+    min-spaces-inside-empty: 0
+    max-spaces-inside-empty: 1
   colons:
-		max-spaces-before: 0
-		min-spaces-after: 1
+    max-spaces-before: 0
+    min-spaces-after: 1
   commas:
-		max-spaces-before: 1
-		min-spaces-after: 0
-		max-spaces-after: 1
+    max-spaces-before: 1
+    min-spaces-after: 0
+    max-spaces-after: 1
   comments:
-		require-starting-space: true
-		ignore-shebangs: true
-		min-spaces-from-content: 3
+    require-starting-space: true
+    ignore-shebangs: true
+    min-spaces-from-content: 3
   comments-indentation: enable
   document-end: disable
   document-start:
-		present: true
+    present: true
     level: warning
   empty-lines:
-		max: 4
-		max-end: 2
-		level: warning
+    max: 4
+    max-end: 2
+    level: warning
   empty-values:
-		forbid-in-block-mappings: true
-		forbid-in-flow-mappings: true
+    forbid-in-block-mappings: true
+    forbid-in-flow-mappings: true
   float-values:
-		require-numeral-before-decimal: true
-		forbid-scientific-notation: false
-		forbid-nan: false
-		forbid-inf: false
+    require-numeral-before-decimal: true
+    forbid-scientific-notation: false
+    forbid-nan: false
+    forbid-inf: false
   hyphens:
-		max-spaces-after: 2
+    max-spaces-after: 2
   indentation:
-		spaces: consistent
-		indent-sequences: consistent
-		check-multi-line-strings: true
+    spaces: consistent
+    indent-sequences: consistent
+    check-multi-line-strings: true
   key-duplicates: enable
   key-ordering: disable
   line-length:
-		max: 120
-		allow-non-breakable-words: true
-		allow-non-breakable-inline-mappings: true
-		level: warning
+    max: 120
+    allow-non-breakable-words: true
+    allow-non-breakable-inline-mappings: true
+    level: warning
   new-line-at-end-of-file: enable
   new-lines:
-		type: unix
+    type: unix
   octal-values:
-		forbid-implicit-octal: true
-		forbid-explicit-octal: false
+    forbid-implicit-octal: true
+    forbid-explicit-octal: false
   quoted-strings:
-		quote-type: any
-		required: only-when-needed
-		extra-required: []
-		extra-allowed: []
-		allow-quoted-quotes: true
+    quote-type: any
+    required: only-when-needed
+    extra-required: []
+    extra-allowed: []
+    allow-quoted-quotes: true
   trailing-spaces:
-		level: warning
+    level: warning
   truthy:
-		check-keys: false
+    check-keys: false
